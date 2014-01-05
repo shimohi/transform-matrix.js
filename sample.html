@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <script src="jquery-1.10.2.js" type="text/javascript">/* */</script>
+    <script src="transform-matrix.js" type="text/javascript">/* */</script>
+    <style type="text/css">
+        <!--
+        div.container{
+            position:relative;
+            width:400px;
+            height:300px;
+            background-color: lightcyan;
+        }
+
+        div.area{
+            position:absolute;
+            font-size: 10px;
+            width:100px;
+            height:20px;
+            background-color:lightpink;
+            text-align:center;
+        }
+        -->
+    </style>
+    <script type="text/javascript">
+        (function () {
+            $(window).on('load', function(){
+
+                var width = $('.area').width();
+                var height = $('.area').height();
+
+                var max = (width > height)?width:height;
+                var min = (width > height)?height:width;
+                var center = max/2 - min/2;
+
+                //回転の確認
+                $('.r30').createMatrix().rotate(30 * Math.PI/180).translate(    0 * max, 0 * max + center   );
+                $('.r60').createMatrix().rotate(60 * Math.PI/180).translate(    0 * max, 1 * max + center   );
+                $('.r90').createMatrix().rotate(90 * Math.PI/180).translate(    0 * max, 2 * max + center   );
+                $('.r120').createMatrix().rotate(120 * Math.PI/180).translate(  1 * max, 0 * max + center   );
+                $('.r150').createMatrix().rotate(150 * Math.PI/180).translate(  1 * max, 1 * max + center   );
+                $('.r180').createMatrix().rotate(180 * Math.PI/180).translate(  1 * max, 2 * max + center   );
+                $('.r210').createMatrix().rotate(210 * Math.PI/180).translate(  2 * max, 0 * max + center   );
+                $('.r240').createMatrix().rotate(240 * Math.PI/180).translate(  2 * max, 1 * max + center   );
+                $('.r270').createMatrix().rotate(270 * Math.PI/180).translate(  2 * max, 2 * max + center   );
+                $('.r300').createMatrix().rotate(300 * Math.PI/180).translate(  3 * max, 0 * max + center   );
+                $('.r330').createMatrix().rotate(330 * Math.PI/180).translate(  3 * max, 1 * max + center   );
+                $('.r360').createMatrix().rotate(360 * Math.PI/180).translate(  3 * max, 2 * max + center   );
+
+                //拡大・縮小の確認
+                $('.x2').createMatrix().scaleX(2).translate(            width / 2,              height * 3 / 2 - height/2);
+                $('.x1_2').createMatrix().scaleX(1/2).translate(        width * 2 + width / 2,  height * 3 / 2 - height/2);
+                $('.y2').createMatrix().scaleY(2).translate(            width / 2,              height * 5 + height * 3 / 2 - height/2);
+                $('.y1_2').createMatrix().scaleY(1/2).translate(        width * 2 + width / 2,  height * 5 + height * 3 / 2 - height/2);
+                $('.x2y3').createMatrix().scale(2,3).translate(         width / 2,              height * 10 + height * 3 / 2 - height/2);
+                $('.x1_2y1_3').createMatrix().scale(1/2,1/3).translate( width * 2 + width / 2,  height * 10 + height * 3 / 2 - height/2);
+
+                //ゆがみの動作確認
+                $('.x30').createMatrix().skewX(30 * Math.PI/180).translate(50,50);
+                $('.x-30').createMatrix().skewX(-30 * Math.PI/180).translate(250,50);
+                $('.y30').createMatrix().skewY(30 * Math.PI/180).translate(50,150);
+                $('.y-30').createMatrix().skewY(-30 * Math.PI/180).translate(250,150);
+                $('.x30y15').createMatrix().skew(30 * Math.PI/180,15 * Math.PI/180).translate(50,250);
+                $('.x-30y-15').createMatrix().skew(-30 * Math.PI/180,-15 * Math.PI/180).translate(250,250);
+            });
+       })();
+    </script>
+    <title>Matrix利用のサンプル</title>
+</head>
+<body>
+    <section>
+        <h3>回転のサンプル</h3>
+        <p>対象要素の中心点を軸に回転する。（Flashとは異なる為注意する。）</p>
+        <hr />
+        <div class="container">
+            <div class="area r30">30° 30° 30° 30° 30°</div>
+            <div class="area r60">60° 60° 60° 60° 60°</div>
+            <div class="area r90">90° 90° 90° 90° 90°</div>
+            <div class="area r120">120° 120° 120° </div>
+            <div class="area r150">150° 150° 150° </div>
+            <div class="area r180">180° 180° 180° </div>
+            <div class="area r210">210° 210° 210°</div>
+            <div class="area r240">240° 240° 240°</div>
+            <div class="area r270">270° 270° 270°</div>
+            <div class="area r300">300° 300° 300°</div>
+            <div class="area r330">330° 330° 330°</div>
+            <div class="area r360">360° 360° 360°</div>
+        </div>
+    </section>
+    <section>
+        <h3>拡大・縮小のサンプル</h3>
+        <p>拡大・縮小後も対象要素の中心点は維持される（同座標となる）。</p>
+        <hr />
+        <div class="container">
+            <div class="area x2">X軸方向へ2倍</div>
+            <div class="area x1_2">X軸方向へ1/2倍</div>
+            <div class="area y2">Y軸方向へ2倍</div>
+            <div class="area y1_2">Y軸方向へ1/2倍</div>
+            <div class="area x2y3">X軸2倍、Y軸3倍</div>
+            <div class="area x1_2y1_3">X軸1/2、Y軸1/3</div>
+        </div>
+    </section>
+    <section>
+        <h3>ゆがみのサンプル</h3>
+        <p>他の変換と同様、中心点は維持される。</p>
+        <hr />
+        <div class="container">
+            <div class="area x30">X軸方向30°</div>
+            <div class="area x-30">X軸方向-30°</div>
+            <div class="area y30">Y軸方向30°</div>
+            <div class="area y-30">Y軸方向-30°</div>
+            <div class="area x30y15">X軸30°Y軸15°</div>
+            <div class="area x-30y-15">X軸-30°Y軸-15°</div>
+        </div>
+    </section>
+</body>
+</html>
